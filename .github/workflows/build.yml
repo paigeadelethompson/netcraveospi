@@ -1,4 +1,4 @@
-name: "Build Surveillance System OS"
+name: "NetcraveOS RPI"
 
 on:
   workflow_dispatch:
