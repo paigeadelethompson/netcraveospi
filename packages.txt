@@ -66,3 +66,7 @@ kodi-peripheral-joystick
 kodi-repository-kodi
 kodi-visualization-spectrum
 retroarch
+kodi-eventclients-zeroconf
+kodi-pvr-iptvsimple
+kodi-game-libretro
+docker.io
