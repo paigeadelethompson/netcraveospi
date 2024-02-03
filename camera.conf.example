@@ -1,8 +1,0 @@
-# Rename to camera<number>.conf and add this to the motion_cameras directory to enable the camera
-video_device   /dev/video0
-camera_name    CAMERA01
-camera_id      101
-width          720
-height         480
-text_left      CAMERA #1
-movie_filename CAM01_%t-%v-%Y%m%d%H%M%S

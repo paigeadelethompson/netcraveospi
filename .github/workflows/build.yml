@@ -32,12 +32,6 @@ jobs:
       run: sudo parted /dev/loop254 mkpart primary ext2 256 3128
     - name: Create HOME partition
       run: sudo parted /dev/loop254 mkpart primary ntfs 3128 7500
-#    - name: Label BOOT 
-#      run: sudo parted /dev/loop254 name 1 BOOT
-#    - name: Label SYSTEM
-#      run: sudo parted /dev/loop254 name 2 SYSTEM
-#    - name: Label HOME
-#      run: sudo parted /dev/loop254 name 3 HOME
     - name: Toogle boot flag on boot partition
       run: sudo parted /dev/loop254 set 1 boot on
     - name: Create BOOT filesystem
@@ -53,25 +47,23 @@ jobs:
     - name: Mount HOME filesystem
       run: sudo mkdir -p /mnt/home/pi && sudo mount.exfat-fuse /dev/loop254p3 /mnt/home/pi
     - name: Docker builder
-      run: docker create --name debian-builder arm64v8/debian:stable
+      run: docker create --name debian-builder arm64v8/debian:trixie
     - name: Add QEMU static
       run: docker cp /usr/bin/qemu-aarch64-static debian-builder:/usr/bin/qemu-aarch64-static
     - name: Commit builder
-      run: docker commit debian-builder arm64v8/debian:stable
+      run: docker commit debian-builder arm64v8/debian:trixie
     - name: Docker build
       run: docker build -t surv:latest .
     - name: Create docker image instance
-      run: docker create --name rpi-image surv:latest
+      run: docker create --name rpi-image netcraveospi:latest
     - name: Docker export
       run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=etc/ssh/*_key* --exclude=etc/ssh/moduli -xf -
     - name: Home directories
-      run: sudo mkdir -p /mnt/home/pi/ssh mnt/home/pi/system_logs /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
+      run: sudo mkdir -p /mnt/home/pi/ssh
     - name: authorized_keys empty file
       run: sudo touch /mnt/home/pi/ssh/authorized_keys
     - name: Create empty machine-id
       run: sudo touch /mnt/etc/machine-id
-    - name: Motion camera example configuration file
-      run: sudo cp camera.conf.example mnt/home/pi
     - name: Copy hosts file
       run: sudo cp hosts /mnt/etc
     - name: Copy hostname file
@@ -81,16 +73,16 @@ jobs:
     - name: Disconnect installer.bin
       run: sudo losetup -D /dev/loop254
     - name: Move into directory
-      run:  mkdir surveillance_system_os && mv installer.* surveillance_system_os/
+      run:  mkdir netcrave_os_pi && mv installer.* netcrave_os_pi/
     - name: Archive directory
-      run: sudo zip -r surveillance_system_os-${{ env.stamp }}.zip surveillance_system_os/
+      run: sudo zip -r netcrave_os_pi-${{ env.stamp }}.zip netcrave_os_pi/
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
       with:
         draft: true
         prerelease: false
-        release_name: surveillance_system_os-${{ env.stamp }}
+        release_name: netcrave_os_pi-${{ env.stamp }}
         tag_name: ${{ env.stamp }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -100,6 +92,6 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: surveillance_system_os-${{ env.stamp }}.zip
-        asset_name: surveillance_system_os-${{ env.stamp }}.zip
+        asset_path: netcrave_os_pi-${{ env.stamp }}.zip
+        asset_name: netcrave_os_pi-${{ env.stamp }}.zip
         asset_content_type: application/zip

@@ -1,4 +1,4 @@
-FROM arm64v8/debian:stable
+FROM arm64v8/debian:trixie
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -52,9 +52,7 @@ ADD 10-usb.network /etc/systemd/network
 
 ADD 10-enx.network /etc/systemd/network
 
-RUN mkdir /home/pi
-
-RUN mkdir /home/pi/ssh
+RUN mkdir -p /home/pi/ssh
 
 RUN groupadd spi
 
@@ -100,16 +98,10 @@ RUN apt -y autoremove
 
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN rm -rf /home
+ADD hyprland /usr/src/hyprland
 
-# Distribution specific additions
+ADD antigen.zsh /usr/src/antigen.zsh
 
-RUN usermod -G pi motion
+ADD zshrc /home/pi/.zshrc
 
-RUN rm -rf /etc/motion
-
-RUN mkdir /etc/motion
-
-ADD motion.conf /etc/motion
-
-RUN chown -R motion:motion /etc/motion
+RUN cd /usr/src/hyprland ; /usr/src/hyprland/install.sh
