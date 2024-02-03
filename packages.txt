@@ -57,16 +57,4 @@ zathura
 python-is-python3
 python3-pip
 samba
-kodi
-kodi-addons-dev
-kodi-addons-dev-common
-kodi-bin
-kodi-data
-kodi-peripheral-joystick
-kodi-repository-kodi
-kodi-visualization-spectrum
-retroarch
-kodi-eventclients-zeroconf
-kodi-pvr-iptvsimple
-kodi-game-libretro
 docker.io
