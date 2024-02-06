@@ -72,7 +72,7 @@ wayland_sessions_dir=/usr/share/wayland-sessions
 # SDDM-themes
 valid_input=false
 while [ "$valid_input" != true ]; do
-  read -n 1 -r -p "${CAT} OPTIONAL - Would you like to install SDDM themes? (y/n)" install_sddm_theme
+  install_sddm_theme="y"
   if [[ $install_sddm_theme =~ ^[Yy]$ ]]; then
     printf "\n%s - Installing Simple SDDM Theme\n" "${NOTE}"
 

@@ -181,7 +181,7 @@ if [ "$rog" == "Y" ]; then
     execute_script "rog.sh"
 fi
 
-execute_script "InputGroup.sh"
+#execute_script "InputGroup.sh"
 
 if [ "$dots" == "Y" ]; then
     execute_script "dotfiles.sh"
