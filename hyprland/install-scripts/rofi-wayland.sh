@@ -37,7 +37,7 @@ printf "\n%s - Installing rofi-wayland dependencies.... \n" "${NOTE}"
 
 printf "${NOTE} Force installing packages...\n"
  for FORCE in "${rofi[@]}"; do
-   sudo apt-get --reinstall install -y "$FORCE" 2>&1 | tee -a "$LOG"
+    apt-get --reinstall install -y "$FORCE" 2>&1 | tee -a "$LOG"
    [ $? -ne 0 ] && { echo -e "\e[1A\e[K${ERROR} - $FORCE install had failed, please check the install.log"; exit 1; }
   done
 
@@ -65,7 +65,7 @@ fi
 
 # Proceed with the installation steps
 if meson setup build && ninja -C build; then
-  if sudo ninja -C build install 2>&1 | tee -a "$MLOG"; then
+  if  ninja -C build install 2>&1 | tee -a "$MLOG"; then
     printf "${OK} rofi-wayland installed successfully.\n" 2>&1 | tee -a "$MLOG"
   else
     echo -e "${ERROR} Installation failed for rofi-wayland." 2>&1 | tee -a "$MLOG"

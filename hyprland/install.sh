@@ -126,7 +126,7 @@ printf "\n"
 # Ensuring all in the scripts folder are made executable
 chmod +x install-scripts/*
 
-sudo apt update
+ apt update
 
 # Install hyprland packages
 execute_script "00-dependencies.sh"

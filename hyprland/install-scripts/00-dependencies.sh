@@ -120,7 +120,7 @@ for PKG1 in "${dependencies[@]}"; do
 done
 
 # Install dependencies for wlroots
-sudo apt build-dep wlroots
+ apt build-dep wlroots
 export PATH=$PATH:/usr/local/go/bin
 
 # Install Rust

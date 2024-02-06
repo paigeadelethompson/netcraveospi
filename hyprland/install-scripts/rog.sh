@@ -28,11 +28,11 @@ install_and_log() {
     source "$HOME/.cargo/env"
     make
 
-    if sudo make install 2>&1 | tee -a "$LOG"; then
+    if  make install 2>&1 | tee -a "$LOG"; then
       printf "${OK} $project_name installed successfully.\n"
       if [ "$project_name" == "supergfxctl" ]; then
         # Enable supergfxctl
-        sudo systemctl enable --now supergfxd 2>&1 | tee -a "$LOG"
+         systemctl enable --now supergfxd 2>&1 | tee -a "$LOG"
       fi
     else
       echo -e "${ERROR} Installation failed for $project_name."

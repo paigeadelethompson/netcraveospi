@@ -37,16 +37,16 @@ fi
 source "$HOME/.cargo/env"
 cargo build --release 2>&1 | tee -a "$MLOG"
 # Copy binaries to /usr/bin/
-sudo cp target/release/swww /usr/bin/ 2>&1 | tee -a "$MLOG"
-sudo cp target/release/swww-daemon /usr/bin/ 2>&1 | tee -a "$MLOG"
+ cp target/release/swww /usr/bin/ 2>&1 | tee -a "$MLOG"
+ cp target/release/swww-daemon /usr/bin/ 2>&1 | tee -a "$MLOG"
 
 # Copy bash completions
-sudo mkdir -p /usr/share/bash-completion/completions 2>&1 | tee -a "$MLOG"
-sudo cp completions/swww.bash /usr/share/bash-completion/completions/swww 2>&1 | tee -a "$MLOG"
+ mkdir -p /usr/share/bash-completion/completions 2>&1 | tee -a "$MLOG"
+ cp completions/swww.bash /usr/share/bash-completion/completions/swww 2>&1 | tee -a "$MLOG"
 
 # Copy zsh completions
-sudo mkdir -p /usr/share/zsh/site-functions 2>&1 | tee -a "$MLOG"
-sudo cp completions/_swww /usr/share/zsh/site-functions/_swww 2>&1 | tee -a "$MLOG"
+ mkdir -p /usr/share/zsh/site-functions 2>&1 | tee -a "$MLOG"
+ cp completions/_swww /usr/share/zsh/site-functions/_swww 2>&1 | tee -a "$MLOG"
 
 # Moving logs into main Install-Logs
 mv "$MLOG" ../Install-Logs/ || true 

@@ -27,14 +27,14 @@ while true; do
             echo "${OK} 'input' group exists." 2>&1 | tee -a "$LOG"
         else
             echo "${NOTE} 'input' group doesn't exist. Creating 'input' group..." 2>&1 | tee -a "$LOG"
-            sudo groupadd input
+             groupadd input
 
             # Log the creation of the 'input' group
             echo "${NOTE} 'input' group created" 2>&1 | tee -a "$LOG"
         fi
 
         # Add the user to the input group
-        sudo usermod -aG input "$(whoami)"
+         usermod -aG input "$(whoami)"
         echo "${OK} User added to the 'input' group. Changes will take effect after you log out and log back in." 2>&1 | tee -a "$LOG"
 
         # Log the addition of the user to the 'input' group

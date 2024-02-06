@@ -27,6 +27,6 @@ done
 
 ## Installing pywal colors
 printf "\n%s - Installing Pywal.... \n" "${NOTE}"
-sudo pip3 install pywal --break-system-packages 2>&1 | tee -a "$LOG"
+ pip3 install pywal --break-system-packages 2>&1 | tee -a "$LOG"
 
 clear

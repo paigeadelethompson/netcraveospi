@@ -13,7 +13,7 @@ nvidia_pkg=(
 )
 
 # for ubuntu-nvidia owners! just delete #
-# sudo ubuntu-drivers install
+#  ubuntu-drivers install
 
 ## WARNING: DO NOT EDIT BEYOND THIS LINE IF YOU DON'T KNOW WHAT YOU ARE DOING! ##
 # Determine the directory where the script is located
@@ -31,24 +31,24 @@ MLOG="install-$(date +%d-%H%M%S)_nvidia2.log"
 
 ## adding the deb source for nvidia driver
 # Create a backup of the sources.list file
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup 2>&1 | tee -a "$LOG"
+ cp /etc/apt/sources.list /etc/apt/sources.list.backup 2>&1 | tee -a "$LOG"
 
 ## UBUNTU - NVIDIA (comment this two by adding # you dont need this!)
 # Add the comment and repository entry to sources.list
-echo "## for nvidia" | sudo tee -a /etc/apt/sources.list 2>&1 | tee -a "$LOG"
-echo "deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list 2>&1 | tee -a "$LOG"
+echo "## for nvidia" |  tee -a /etc/apt/sources.list 2>&1 | tee -a "$LOG"
+echo "deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware" |  tee -a /etc/apt/sources.list 2>&1 | tee -a "$LOG"
 
 # Update the package list
-sudo apt update
+ apt update
 
 # Function to add a value to a configuration file if not present
 add_to_file() {
     local config_file="$1"
     local value="$2"
     
-    if ! sudo grep -q "$value" "$config_file"; then
+    if !  grep -q "$value" "$config_file"; then
         echo "Adding $value to $config_file"
-        sudo sh -c "echo '$value' >> '$config_file'"
+         sh -c "echo '$value' >> '$config_file'"
     else
         echo "$value is already present in $config_file."
     fi
@@ -66,7 +66,7 @@ fi
 if git clone --recursive -b v0.32.3 "https://github.com/hyprwm/Hyprland"; then
   cd "Hyprland" || exit 1
   make all
-  if sudo make install 2>&1 | tee -a "$MLOG"; then
+  if  make install 2>&1 | tee -a "$MLOG"; then
     printf "${OK} Hyprland installed successfully.\n" 2>&1 | tee -a "$MLOG"
   else
     echo -e "${ERROR} Installation failed for Hyprland." 2>&1 | tee -a "$MLOG"
@@ -95,12 +95,12 @@ printf "${YELLOW} nvidia-stuff to /etc/default/grub..."
     echo "GRUB_CMDLINE_LINUX already contains the additional options"
   else
     # Append the additional options to GRUB_CMDLINE_LINUX
-    sudo sed -i "s/GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"$additional_options /" /etc/default/grub
+     sed -i "s/GRUB_CMDLINE_LINUX=\"/GRUB_CMDLINE_LINUX=\"$additional_options /" /etc/default/grub
     echo "Added the additional options to GRUB_CMDLINE_LINUX"
   fi
 
   # Update GRUB configuration
-  sudo update-grub 2>&1 | tee -a "$LOG"
+   update-grub 2>&1 | tee -a "$LOG"
     
   # Define the configuration file and the line to add
     config_file="/etc/modprobe.d/nvidia.conf"
@@ -109,7 +109,7 @@ printf "${YELLOW} nvidia-stuff to /etc/default/grub..."
     # Check if the config file exists
     if [ ! -e "$config_file" ]; then
         echo "Creating $config_file"
-        sudo touch "$config_file" 2>&1 | tee -a "$LOG"
+         touch "$config_file" 2>&1 | tee -a "$LOG"
     fi
 
     add_to_file "$config_file" "$line_to_add"
@@ -120,7 +120,7 @@ printf "${YELLOW} nvidia-stuff to /etc/default/grub..."
 
    if [ -e "$modules_file" ]; then
     add_to_file "$modules_file" "$modules_to_add" 2>&1 | tee -a "$LOG"
-    sudo update-initramfs -u 2>&1 | tee -a "$LOG"
+     update-initramfs -u 2>&1 | tee -a "$LOG"
    else
     echo "Modules file ($modules_file) not found." 2>&1 | tee -a "$LOG"
    fi

@@ -36,7 +36,7 @@ fi
 # Proceed with the installation steps
 meson build
 ninja -C build
-sudo ninja -C build install 2>&1 | tee -a "$MLOG"
+ ninja -C build install 2>&1 | tee -a "$MLOG"
 
 # Moving logs into main Install-Logs
 mv "$MLOG" ../Install-Logs/ || true 

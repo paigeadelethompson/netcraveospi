@@ -38,7 +38,7 @@ printf "${NOTE} Installing xdg-desktop-portal-hyprland...\n"
 if git clone --recursive https://github.com/hyprwm/xdg-desktop-portal-hyprland; then
     cd xdg-desktop-portal-hyprland || exit 1
     make all
-    if sudo make install 2>&1 | tee -a "$MLOG" ; then
+    if  make install 2>&1 | tee -a "$MLOG" ; then
         printf "${OK} xdg-desktop-portal-hyprland installed successfully.\n" 2>&1 | tee -a "$MLOG"
     else
         echo -e "${ERROR} Installation failed for xdg-desktop-portal-hyprland." 2>&1 | tee -a "$MLOG"
@@ -65,14 +65,14 @@ while true; do
         # Clean out other portals
         printf "${NOTE} Clearing any other xdg-desktop-portal implementations...\n"
         # Check if packages are installed and uninstall if present
-        if sudo apt-get list installed xdg-desktop-portal-wlr &>> /dev/null; then
+        if  apt-get list installed xdg-desktop-portal-wlr &>> /dev/null; then
         echo "Removing xdg-desktop-portal-wlr..."
-        sudo apt-get remove -y xdg-desktop-portal-wlr 2>&1 | tee -a "$LOG"
+         apt-get remove -y xdg-desktop-portal-wlr 2>&1 | tee -a "$LOG"
         fi
   
-        if sudo apt-get list installed xdg-desktop-portal-lxqt &>> /dev/null; then
+        if  apt-get list installed xdg-desktop-portal-lxqt &>> /dev/null; then
         echo "Removing xdg-desktop-portal-lxqt..."
-        sudo apt-get remove -y xdg-desktop-portal-lxqt 2>&1 | tee -a "$LOG"
+         apt-get remove -y xdg-desktop-portal-lxqt 2>&1 | tee -a "$LOG"
         fi
         break
         ;;

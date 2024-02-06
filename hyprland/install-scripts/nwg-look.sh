@@ -52,7 +52,7 @@ fi
 
 # Build nwg-look
 make build
-if sudo make install 2>&1 | tee -a "$MLOG"; then
+if  make install 2>&1 | tee -a "$MLOG"; then
   printf "${OK} nwg-look installed successfully.\n" 2>&1 | tee -a "$MLOG"
 else
   echo -e "${ERROR} Installation failed for nwg-look" 2>&1 | tee -a "$MLOG"
